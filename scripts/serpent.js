@@ -141,6 +141,13 @@ class Serpent{
 			ctx.arc( this.body[i].x*w + w*0.5, this.body[i].y*w + w*0.5 , 1 , 0 , Math.PI*2 ,true );
 			ctx.fill();
 			ctx.closePath();
+			
+			
+			ctx.save();
+			ctx.translate(this.body[i].x*w + w*0.5, this.body[i].y*w + w*0.5);
+			ctx.rotate(Math.PI/4);
+			ctx.fillRect( - w*0.10,  - w*0.10, w*0.20, w*0.20);
+			ctx.restore();
 		}
 
 		

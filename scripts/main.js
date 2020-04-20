@@ -40,6 +40,33 @@ var ax=15,ay=15;
 var FPS =15;
 var boa = new Serpent();
 
+var g = {
+	x : undefined,
+	y : undefined,
+	z : undefined
+}
+
+if(window.DeviceMotionEvent){
+	window.ondevicemotion = function(e){
+		g.x = -e.accelerationIncludingGravity.x;
+		g.y = e.accelerationIncludingGravity.y;
+		g.z = e.accelerationIncludingGravity.z;
+		
+		const _ = 4.5;
+		if ( g.x > _ ) {
+			boa.charm('>');
+		} else if ( g.x < -_ ) {
+			boa.charm('<');
+		} else if ( g.y > _ ) {
+			boa.charm('v');
+		} else if ( g.y < -_ ) {
+			boa.charm('^');
+		}
+	};
+}else{
+	alert("YOU GOTTA HAVE Accelerometer TO RUN THIS CODE!");
+}
+
 window.onload = function(){
 	canvas = document.getElementById('canvas');
 	ctx = canvas.getContext('2d');
