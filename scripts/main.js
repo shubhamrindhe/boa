@@ -66,6 +66,8 @@ if(window.DeviceMotionEvent){
 			boa.charm('^');
 			document.getElementById('4') = '^';
 		}
+		
+		document.getElementById('msg') = JSON.stringify(g);
 	};
 }else{
 	alert("YOU GOTTA HAVE Accelerometer TO RUN THIS CODE!");
