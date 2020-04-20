@@ -55,12 +55,16 @@ if(window.DeviceMotionEvent){
 		const _ = 4.5;
 		if ( g.x > _ ) {
 			boa.charm('>');
+			document.getElementById('4') = '>';
 		} else if ( g.x < -_ ) {
 			boa.charm('<');
+			document.getElementById('4') = '<';
 		} else if ( g.y > _ ) {
 			boa.charm('v');
+			document.getElementById('4') = 'v';
 		} else if ( g.y < -_ ) {
 			boa.charm('^');
+			document.getElementById('4') = '^';
 		}
 	};
 }else{
