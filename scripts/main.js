@@ -52,7 +52,7 @@ if(window.DeviceMotionEvent){
 		g.y = e.accelerationIncludingGravity.y;
 		g.z = e.accelerationIncludingGravity.z;
 		
-		const _ = 4.5;
+		const _ = 2;
 		if ( g.x > _ ) {
 			boa.charm('>');
 			document.getElementById('4') = '>';
@@ -69,6 +69,7 @@ if(window.DeviceMotionEvent){
 		
 		document.getElementById('msg') = JSON.stringify(g);
 	};
+	alert("Accelerometer Enabled!");
 }else{
 	alert("YOU GOTTA HAVE Accelerometer TO RUN THIS CODE!");
 }
