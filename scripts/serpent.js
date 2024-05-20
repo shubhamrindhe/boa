@@ -1,129 +1,129 @@
 
-class Serpent{
-	constructor(){
+export class Serpent {
+
+	constructor() {
 		this.body = [];
 		this.len = 3;
 		this.dir = {
-			x : 0,
-			y : 0
+			x: 0,
+			y: 0
 		};
 		this.dirChar = '';
 		this.pos = {
-			x : 10,
-			y : 10
+			x: 10,
+			y: 10
 		};
+
+		this.w = 10;
 	}
-	
-	update(){
+
+	update() {
 		var tc = 20;
-		
+
 		this.pos.x += this.dir.x;
 		this.pos.y += this.dir.y;
-		
-		if(this.pos.x<0){
-			this.pos.x=tc-1;
+
+		if (this.pos.x < 0) {
+			this.pos.x = tc - 1;
 		}
-		if(this.pos.x>tc-1){
-			this.pos.x=0;
+		if (this.pos.x > tc - 1) {
+			this.pos.x = 0;
 		}
-		if(this.pos.y<0){
-			this.pos.y = tc-1;
+		if (this.pos.y < 0) {
+			this.pos.y = tc - 1;
 		}
-		if(this.pos.y>tc-1){
+		if (this.pos.y > tc - 1) {
 			this.pos.y = 0;
 		}
-		
-		for(var i=0;i<this.body.length;++i){
-			if(this.body[i].x==this.pos.x && this.body[i].y==this.pos.y){this.len=3;}
+
+		for (var i = 0; i < this.body.length; ++i) {
+			if (this.body[i].x == this.pos.x && this.body[i].y == this.pos.y) { this.len = 3; }
 		}
-		
+
 		//this.body.push({ x:this.pos.x , y:this.pos.y });
-		this.body.unshift({ x:this.pos.x , y:this.pos.y });
-		
-		while(this.body.length>this.len) {
+		this.body.unshift({ x: this.pos.x, y: this.pos.y });
+
+		while (this.body.length > this.len) {
 			this.body.pop();
 		}
-		
+
 	}
-	
-	
-	seek(x,y){
+
+
+	seek(x, y) {
 	}
-	
-	charm(towards){
-		switch(towards){
+
+	charm(towards) {
+		switch (towards) {
 			case '^':
-				if(this.dirChar!='v'){
+				if (this.dirChar != 'v') {
 					this.dir.x = 0;
-					this.dir.y =-1;
-					this.dirChar='^'
+					this.dir.y = -1;
+					this.dirChar = '^'
 				}
 				break;
 			case '>':
-				if(this.dirChar!='<'){
+				if (this.dirChar != '<') {
 					this.dir.x = 1;
 					this.dir.y = 0;
-					this.dirChar='>';
+					this.dirChar = '>';
 				}
 				break;
 			case 'v':
-				if(this.dirChar!='^'){
+				if (this.dirChar != '^') {
 					this.dir.x = 0;
 					this.dir.y = 1;
-					this.dirChar='v';
+					this.dirChar = 'v';
 				}
 				break;
 			case '<':
-				if(this.dirChar!='>'){
-					this.dir.x =-1;
+				if (this.dirChar != '>') {
+					this.dir.x = -1;
 					this.dir.y = 0;
-					this.dirChar='<';
+					this.dirChar = '<';
 				}
 				break;
 			default:
-			
+
 		}
 	}
-	
-	
-	render(ctx){
-		
-		
+
+
+	render(ctx) {
+
+		let w = this.w;
+
 		ctx.beginPath();
 		ctx.fillStyle = 'black';
-		ctx.arc( this.body[0].x*w + w*0.5, this.body[0].y*w + w*0.5 , w*0.5 , 0 , Math.PI*2 ,true );
+		ctx.arc(this.body[0].x * w + w * 0.5, this.body[0].y * w + w * 0.5, w * 0.5, 0, Math.PI * 2, true);
 		ctx.fill();
 		ctx.closePath();
-		
-		
+
+
 		ctx.strokeStyle = "black";
 		ctx.beginPath();
-		ctx.moveTo(this.body[0].x * w + w*0.5 ,this.body[0].y * w + w*0.5 );
-		
-		for(var i=1;i<this.body.length;++i){
-								
-			var abs_x = Math.abs(this.body[i-1].x - this.body[i].x);
-			var abs_y = Math.abs(this.body[i-1].y - this.body[i].y);
-			
-			
-			
-			
-			
-			if(
-				(abs_x==1||abs_x==0)
-					&&
-				(abs_y==1||abs_y==0)
-			){
-				ctx.lineTo( this.body[i].x*w + w*0.5 , this.body[i].y*w + w*0.5 );
+		ctx.moveTo(this.body[0].x * w + w * 0.5, this.body[0].y * w + w * 0.5);
+
+		for (var i = 1; i < this.body.length; ++i) {
+
+			var abs_x = Math.abs(this.body[i - 1].x - this.body[i].x);
+			var abs_y = Math.abs(this.body[i - 1].y - this.body[i].y);
+
+			if (
+				(abs_x == 1 || abs_x == 0)
+				&&
+				(abs_y == 1 || abs_y == 0)
+			) {
+				ctx.lineTo(this.body[i].x * w + w * 0.5, this.body[i].y * w + w * 0.5);
 				ctx.lineCap = "round";
 				ctx.lineJoin = "round";//"bevel|round|miter";
 				ctx.lineWidth = w - 2;
-			}else{
+			} else {
 				ctx.stroke();
-				ctx.closePath();	
+				ctx.closePath();
 				ctx.beginPath();
-				ctx.moveTo( this.body[i].x*w + w*0.5 ,this.body[i].y * w + w*0.5 );
-				ctx.lineTo( this.body[i].x*w + w*0.5 ,this.body[i].y*w + w*0.5 );
+				ctx.moveTo(this.body[i].x * w + w * 0.5, this.body[i].y * w + w * 0.5);
+				ctx.lineTo(this.body[i].x * w + w * 0.5, this.body[i].y * w + w * 0.5);
 				ctx.lineCap = "round";
 				ctx.lineJoin = "round";//"bevel|round|miter";
 				ctx.lineWidth = w - 2;
@@ -134,48 +134,47 @@ class Serpent{
 		//ctx.fill();
 		ctx.stroke();
 		ctx.closePath();
-							
-		for(var i=1;i<this.body.length;++i){
+
+		for (var i = 1; i < this.body.length; ++i) {
 			ctx.beginPath();
 			ctx.fillStyle = 'yellow';
-			ctx.arc( this.body[i].x*w + w*0.5, this.body[i].y*w + w*0.5 , 1 , 0 , Math.PI*2 ,true );
+			ctx.arc(this.body[i].x * w + w * 0.5, this.body[i].y * w + w * 0.5, 1, 0, Math.PI * 2, true);
 			ctx.fill();
 			ctx.closePath();
-			
-			
+
+
 			ctx.save();
-			ctx.translate(this.body[i].x*w + w*0.5, this.body[i].y*w + w*0.5);
-			ctx.rotate(Math.PI/4);
-			ctx.fillRect( - w*0.10,  - w*0.10, w*0.20, w*0.20);
+			ctx.translate(this.body[i].x * w + w * 0.5, this.body[i].y * w + w * 0.5);
+			ctx.rotate(Math.PI / 4);
+			ctx.fillRect(- w * 0.10, - w * 0.10, w * 0.20, w * 0.20);
 			ctx.restore();
 		}
 
-		
-		ctx.save();					
-		ctx.translate(this.body[0].x*w + w*0.5, this.body[0].y*w + w*0.5 );
-		switch(this.dirChar){
+		ctx.save();
+		ctx.translate(this.body[0].x * w + w * 0.5, this.body[0].y * w + w * 0.5);
+		switch (this.dirChar) {
 			case '^':
 				ctx.rotate(0);
 				break;
 			case '>':
-				ctx.rotate(Math.PI/2);
+				ctx.rotate(Math.PI / 2);
 				break;
 			case 'v':
 				ctx.rotate(Math.PI);
 				break;
 			case '<':
-				ctx.rotate(-Math.PI/2);
+				ctx.rotate(-Math.PI / 2);
 				break;
-		}	
-							
+		}
+
 		ctx.beginPath();
-		ctx.moveTo(0,0);
-		ctx.lineTo(0,-10);
+		ctx.moveTo(0, 0);
+		ctx.lineTo(0, -10);
 		ctx.strokeStyle = 'red';
 		ctx.lineWidth = 3;
 		ctx.stroke();
 		ctx.closePath();
-							
+
 		/*				
 		ctx.beginPath();
 		ctx.arc(-3,-5,2,0,Math.PI*2,true);
@@ -188,11 +187,7 @@ class Serpent{
 		ctx.fillStyle = '#fff';
 		ctx.fill();
 		ctx.closePath();
-		*/					
+		*/
 		ctx.restore();
-		
-		
-		
 	}
-	
 } 
