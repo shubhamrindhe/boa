@@ -69,12 +69,14 @@
 		border-bottom:2px solid black;
 	}
 	</style>
-	<script type="module" src="./scripts/main.js"></script>
+	<!-- <script type="text/javascript" src="./scripts/serpent.js" ></script> -->
+	<!-- <script type="text/javascript" src="./scripts/pathfinder.js" ></script> -->
+	<!-- <script type="module" src="./scripts/main.js"></script> -->
 </head>
 <body>
 	<code id="grid" class="centroid" style="white-space:pre;width:200px;height:200;font-size:10;line-height:1;"></code>	
 	<div id="msg"></div>
-	<canvas id="canvas" width="400" height="400" class="centroid" style="">Sorry your browser does not support HTML5</canvas>
+	<!-- <canvas id="canvas" width="400" height="400" class="centroid" style="">Sorry your browser does not support HTML5</canvas> -->
 	
 	<table id="board" class="" style="">
 		<tr>
@@ -93,7 +95,15 @@
 			<td id="8" class="cell"></td>
 		</tr>
 	</table>
-	
+
+	<vasuki-indicus>
+		<span slot="one">YOOO!</span>
+		<span slot="two">YOOO!</span>
+	</vasuki-indicus>
+
+	<script type="module">
+	import VasukiIndicus from './scripts/VasukiIndicus.js';
+	</script>
 </body>
 	
 </html>
